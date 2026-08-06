@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: theme('colors.theatre.teal');
+    @apply text-theatre-offwhite font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-theatre-gold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-theatre-coral text-theatre-offwhite px-8 py-3 
+           hover:-translate-y-1 transition duration-300 font-display font-bold uppercase tracking-wider
+           shadow-solid-black active:shadow-none active:translate-x-[4px] active:translate-y-[4px] rounded-full text-sm border-2 border-theatre-black;
+  }
+  .btn-secondary {
+    @apply bg-transparent text-theatre-gold px-8 py-3 border-2 border-theatre-gold 
+           hover:bg-theatre-gold hover:text-theatre-teal transition duration-300 font-display font-bold tracking-wider uppercase
+           rounded-full text-sm shadow-solid-black active:shadow-none active:translate-x-[4px] active:translate-y-[4px];
+  }
+  .playbill-card {
+    @apply bg-theatre-offwhite border-4 border-theatre-gold shadow-solid-black p-6 md:p-8 relative overflow-hidden rounded-xl hover:-translate-y-2 transition-all duration-300 text-theatre-black;
+  }
+  .playbill-card::before {
+    display: none;
+  }
+  .gold-divider {
+    @apply w-full h-[3px] bg-theatre-gold my-6 opacity-100 rounded-full;
+  }
+  .input-field {
+    @apply w-full bg-theatre-offwhite border-2 border-theatre-gold/50 px-5 py-3 focus:outline-none focus:border-theatre-coral 
+           focus:ring-2 focus:ring-theatre-coral font-sans text-theatre-black rounded-lg shadow-inner;
+  }
+  .pill-tag {
+    @apply inline-block bg-theatre-pink text-theatre-teal px-3 py-1 rounded-full font-display font-bold text-xs uppercase tracking-wider border border-theatre-teal;
+  }
+  .arch-container {
+    border-radius: 260px 260px 0 0;
+    @apply border-x-[12px] border-t-[12px] border-b-0 border-theatre-gold relative;
+  }
+  .arch-tab-left {
+    @apply absolute -top-3 -left-3 w-8 h-8 bg-theatre-coral rounded-full border-4 border-theatre-teal;
+  }
+  .arch-tab-right {
+    @apply absolute -top-3 -right-3 w-8 h-8 bg-theatre-coral rounded-full border-4 border-theatre-teal;
+  }
+}
