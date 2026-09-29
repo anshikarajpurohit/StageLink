@@ -20,7 +20,12 @@ router.post('/signup', async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
     res.status(201).json({ token, user: { id: user._id, name: user.name, role: user.role } });
-  } catch (err) { res.status(400).json({ error: err.message }); }
+  } catch (err) { 
+    if (err.code === 11000) {
+      return res.status(400).json({ error: 'An account with this email already exists.' });
+    }
+    res.status(400).json({ error: err.message }); 
+  }
 });
 
 router.post('/login', async (req, res) => {

@@ -6,9 +6,12 @@ const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'audience', city: '' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
     try {
       const { data } = await api.post('/auth/signup', formData);
       localStorage.setItem('token', data.token);
@@ -22,6 +25,8 @@ const Signup = () => {
           ? 'Cannot connect to backend server. Please verify backend URL.' 
           : 'Signup failed')
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,7 +71,9 @@ const Signup = () => {
               </select>
             </div>
           </div>
-          <button type="submit" className="btn-primary w-full mt-8 text-lg py-4">Secure Tickets</button>
+          <button type="submit" disabled={loading} className="btn-primary w-full mt-8 text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed">
+            {loading ? 'Setting Up Your Pass...' : 'Secure Tickets'}
+          </button>
         </form>
         
         <div className="w-full h-[3px] bg-theatre-teal/20 my-6 rounded-full"></div>

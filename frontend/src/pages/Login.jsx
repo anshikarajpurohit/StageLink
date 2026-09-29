@@ -6,9 +6,12 @@ const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
     try {
       const { data } = await api.post('/auth/login', formData);
       localStorage.setItem('token', data.token);
@@ -22,6 +25,8 @@ const Login = () => {
           ? 'Cannot connect to backend server. Please verify backend URL.' 
           : 'Login failed')
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,7 +51,9 @@ const Login = () => {
             <input type="password" className="input-field border-theatre-teal" required 
               onChange={e => setFormData({...formData, password: e.target.value})} />
           </div>
-          <button type="submit" className="btn-primary w-full mt-6 text-lg py-4">Enter Theatre</button>
+          <button type="submit" disabled={loading} className="btn-primary w-full mt-6 text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed">
+            {loading ? 'Entering Theatre...' : 'Enter Theatre'}
+          </button>
         </form>
         
         <div className="w-full h-[3px] bg-theatre-teal/20 my-8 rounded-full"></div>
