@@ -16,7 +16,12 @@ const Login = () => {
       navigate('/home');
       window.location.reload();
     } catch (err) {
-      setError(err.response?.data?.error || 'Login failed');
+      setError(
+        err.response?.data?.error || 
+        (err.message === 'Network Error' 
+          ? 'Cannot connect to backend server. Please verify backend URL.' 
+          : 'Login failed')
+      );
     }
   };
 
